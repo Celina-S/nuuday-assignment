@@ -17,6 +17,8 @@ function App() {
       .then(response => response.json())
       .then(result => {
         console.log(result);
+        var clearSearchName = document.getElementById("repo");
+        clearSearchName.innerHTML = "";
         
         result.forEach(e => {
           var searchName = document.getElementById("repo");
