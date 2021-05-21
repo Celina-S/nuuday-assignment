@@ -1,13 +1,29 @@
 import './App.css';
 import React from 'react';
+// import axios from 'axios';
 
 function App() {
+
 
   function handleClick(e) {
     e.preventDefault();
 
     var nameInput = document.getElementById("inputGithubName");
     var name = nameInput;
+    
+
+
+    fetch('https://api.github.com/users/' + name.value + '/repos') 
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        
+        result.forEach(e => {
+          var searchName = document.getElementById("repo");
+          searchName.insertAdjacentHTML('afterbegin','<li>' + e.name + '</li>');
+          console.log(e.name);
+        });
+      })    
 
     console.log(name.value);
   }
@@ -24,7 +40,10 @@ function App() {
         <button onClick={handleClick}>
           Submit
         </button>
-      </form>      
+      </form>  
+      <div id="content">
+        <ul id="repo"></ul>
+      </div>    
     </div>
   );
 }
